@@ -1,0 +1,25 @@
+{
+  "overview": "IndiShield is a legal assessment tool that helps Indian policyholders evaluate the strength of their fire insurance claims before filing. It uses a structured scoring engine backed by real NCDRC/SCDRC case law to deliver a legally grounded claim strength score, denial risk breakdown, and strategic next steps.",
+  "features": [
+    "7-step guided claim assessment questionnaire",
+    "Server-side scoring engine with free-text modifier (±10 pts)",
+    "Claim Strength Score (0–100) with STRONG/MODERATE/WEAK bands",
+    "Denial Ground Risk Matrix with severity indicators",
+    "Case Law Matching from 10 landmark Indian court decisions",
+    "Strategic Next Steps with actionable legal guidance",
+    "Per-user assessment history via Internet Identity login",
+    "Resources page with full methodology and statute references"
+  ],
+  "category": "legal-tools",
+  "tags": [
+    "insurance",
+    "legal",
+    "india",
+    "fire-insurance",
+    "claim-assessment",
+    "consumer-protection",
+    "ncdrc",
+    "scoring"
+  ],
+  "last_updated": "2026-04-28T10:32:04.343Z"
+}

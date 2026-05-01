@@ -1,0 +1,84 @@
+// Version: 1.0.0
+type AssessmentInput__455858824 =
+  {
+    additionalContext : Text;
+    brigadeReport : BrigadeReport__517258055;
+    brigadeReportText : Text;
+    documentStatus : DocumentStatus__475358039;
+    documentStatusText : Text;
+    fireCause : FireCause__798531012;
+    fireCauseText : Text;
+    policyStatus : PolicyStatus__1000785545;
+    policyStatusText : Text;
+    reportingDelay : ReportingDelay__658929757;
+    reportingDelayText : Text;
+    surveyorStatus : SurveyorStatus__798632650;
+    surveyorStatusText : Text
+  };
+type Assessment__596753465 =
+  {
+    createdAt : Int;
+    id : Text;
+    input : AssessmentInput__455858824;
+    owner : Principal;
+    result : ScoreResult__848911686
+  };
+type BrigadeReport__517258055 = {#Available; #NotAvailable; #Pending};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type DocumentStatus__475358039 = {#Complete; #Incomplete; #Partial};
+type FireCause__798531012 =
+  {#Accidental; #Arson; #Electrical; #GasExplosion; #NaturalCalamity; #Other};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type ParameterBreakdown__170828441 =
+  {maxPoints : Nat; parameter : Text; pointsScored : Nat; userAnswer : Text};
+type PolicyStatus__1000785545 = {#Active; #Inactive; #Unsure};
+type ReportingDelay__658929757 =
+  {#Days4To7; #Days8To15; #Over15Days; #SameDay; #Within3Days};
+type ScoreResult__848911686 =
+  {
+    assessmentId : Text;
+    band : Text;
+    baseScore : Nat;
+    breakdown : [ParameterBreakdown__170828441];
+    freeTextModifier : Int;
+    totalScore : Int
+  };
+type SurveyorStatus__798632650 =
+  {#Favourable; #NotAppointed; #Pending; #Unfavourable};
+type UserRole__1073662873 = {#admin; #guest; #user};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable assessments :
+    {
+      var root : Node__46230540<Text, Assessment__596753465>;
+      var size : Nat__490723111
+    };
+  stable counter : {var count : Nat};
+  stable userAssessments :
+    {
+      var root : Node__46230540<Principal, List__415060402<Text>>;
+      var size : Nat__490723111
+    }
+};

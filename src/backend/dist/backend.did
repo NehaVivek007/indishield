@@ -1,0 +1,97 @@
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type SurveyorStatus = 
+ variant {
+   Favourable;
+   NotAppointed;
+   Pending;
+   Unfavourable;
+ };
+type ScoreResult = 
+ record {
+   assessmentId: text;
+   band: text;
+   baseScore: nat;
+   breakdown: vec ParameterBreakdown;
+   freeTextModifier: int;
+   totalScore: int;
+ };
+type ReportingDelay = 
+ variant {
+   Days4To7;
+   Days8To15;
+   Over15Days;
+   SameDay;
+   Within3Days;
+ };
+type PolicyStatus = 
+ variant {
+   Active;
+   Inactive;
+   Unsure;
+ };
+type ParameterBreakdown = 
+ record {
+   maxPoints: nat;
+   parameter: text;
+   pointsScored: nat;
+   userAnswer: text;
+ };
+type FireCause = 
+ variant {
+   Accidental;
+   Arson;
+   Electrical;
+   GasExplosion;
+   NaturalCalamity;
+   Other;
+ };
+type DocumentStatus = 
+ variant {
+   Complete;
+   Incomplete;
+   Partial;
+ };
+type BrigadeReport = 
+ variant {
+   Available;
+   NotAvailable;
+   Pending;
+ };
+type AssessmentInput = 
+ record {
+   additionalContext: text;
+   brigadeReport: BrigadeReport;
+   brigadeReportText: text;
+   documentStatus: DocumentStatus;
+   documentStatusText: text;
+   fireCause: FireCause;
+   fireCauseText: text;
+   policyStatus: PolicyStatus;
+   policyStatusText: text;
+   reportingDelay: ReportingDelay;
+   reportingDelayText: text;
+   surveyorStatus: SurveyorStatus;
+   surveyorStatusText: text;
+ };
+type Assessment = 
+ record {
+   createdAt: int;
+   id: text;
+   input: AssessmentInput;
+   owner: principal;
+   result: ScoreResult;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  getAssessment: (id: text) -> (opt Assessment) query;
+  getCallerUserRole: () -> (UserRole) query;
+  isCallerAdmin: () -> (bool) query;
+  listAssessments: () -> (vec Assessment) query;
+  submitAssessment: (input: AssessmentInput) -> (ScoreResult);
+}
